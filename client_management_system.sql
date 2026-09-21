@@ -1,11 +1,11 @@
 -- =============================================================================
--- EMPLOYEE MANAGEMENT SYSTEM - Complete MySQL Database Script
+-- CLIENT MANAGEMENT SYSTEM - MySQL Database Script
 -- Version: 1.0 | Compatible: MySQL 8.0+
 -- Normalization: Up to Third Normal Form (3NF)
 -- =============================================================================
 -- HOW TO IMPORT:
 --   phpMyAdmin : Import > Choose File > Run
---   MySQL CLI  : mysql -u root -p < employee_management_system.sql
+--   MySQL CLI  : mysql -u root -p < client_management_system.sql
 --   Workbench  : File > Run SQL Script
 -- =============================================================================
 
@@ -16,12 +16,12 @@ SET SQL_MODE = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVIS
 -- 1. DATABASE CREATION
 -- =============================================================================
 
-DROP DATABASE IF EXISTS employee_mgmt;
-CREATE DATABASE employee_mgmt
+DROP DATABASE IF EXISTS client_mgmt;
+CREATE DATABASE client_mgmt
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-USE employee_mgmt;
+USE client_mgmt;
 
 -- =============================================================================
 -- 2. TABLE CREATION

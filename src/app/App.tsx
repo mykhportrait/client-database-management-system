@@ -448,6 +448,26 @@ function ClientsModule({ clients, setClients, sites = SITES }: { clients: Client
 
   if (selected) {
     const clientSites = sites.filter(s => s.clientId === selected.id);
+    const siteServiceSummaries = clientSites.length > 0
+      ? clientSites.map(site => ({
+          siteCode: site.siteCode,
+          siteName: site.siteName,
+          region: site.region,
+          service: selected.serviceType,
+          bandwidth: site.bandwidth || selected.bandwidth,
+          status: site.status,
+          equipment: site.equipment,
+        }))
+      : [{
+          siteCode: "—",
+          siteName: "Primary account",
+          region: selected.region,
+          service: selected.serviceType,
+          bandwidth: selected.bandwidth,
+          status: selected.status,
+          equipment: "Account record",
+        }];
+
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between gap-3">
@@ -513,6 +533,55 @@ function ClientsModule({ clients, setClients, sites = SITES }: { clients: Client
                 <div key={k}>
                   <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider">{k}</p>
                   <p className={`text-xs mt-0.5 leading-relaxed ${k.includes("Email") ? "text-primary font-mono" : "text-foreground"}`}>{v}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+          <div className="bg-card border border-border rounded p-5">
+            <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Associated Sites</p>
+            <div className="mt-4 space-y-3">
+              {clientSites.length > 0 ? clientSites.map(site => (
+                <div key={site.id} className="rounded border border-border bg-secondary/10 p-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold text-foreground">{site.siteName}</p>
+                      <p className="text-[10px] font-mono text-muted-foreground mt-1">{site.siteCode} · {site.region}</p>
+                    </div>
+                    <StatusBadge status={site.status} />
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-[10px] font-mono text-muted-foreground">
+                    <span>Type: {site.type}</span>
+                    <span>BW: {site.bandwidth}</span>
+                    <span>Uptime: {site.uptime}</span>
+                    <span>Equip: {site.equipment}</span>
+                  </div>
+                </div>
+              )) : (
+                <p className="text-xs text-muted-foreground">No site records are linked to this customer yet.</p>
+              )}
+            </div>
+          </div>
+
+          <div className="bg-card border border-border rounded p-5">
+            <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Site Services</p>
+            <div className="mt-4 space-y-3">
+              {siteServiceSummaries.map((item, index) => (
+                <div key={`${item.siteCode}-${index}`} className="rounded border border-border bg-secondary/10 p-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold text-foreground">{item.siteName}</p>
+                      <p className="text-[10px] font-mono text-muted-foreground mt-1">{item.siteCode} · {item.region}</p>
+                    </div>
+                    <StatusBadge status={item.status} />
+                  </div>
+                  <div className="mt-3 space-y-1 text-[10px] font-mono text-muted-foreground">
+                    <p>Service: {item.service}</p>
+                    <p>Bandwidth: {item.bandwidth}</p>
+                    <p>Equipment: {item.equipment}</p>
+                  </div>
                 </div>
               ))}
             </div>

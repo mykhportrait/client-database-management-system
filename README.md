@@ -1,11 +1,10 @@
-# client-database-management-system
+# Client Management Database System
 
 This project is a client data and service management dashboard for Comsys Ghana Limited.
 
 It is built around client accounts, services, branches, and site records for telecom and infrastructure operations.
 
-The original design reference is available at:
-https://www.figma.com/design/0LIbnHsknnLV8l6Na2ME1w/Employee-Management-System-Database--Community-
+This repository is focused on the client management database system used to track customer portfolios, service coverage, and operational performance.
 
 ## Running the project
 
